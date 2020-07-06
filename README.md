@@ -8,12 +8,12 @@ Eloquent model for ClickHouse
 
 ## Installation
 ```sh
-$ composer require libern/laravel-clickhouse
+$ composer require linlancer/laravel-clickhouse
 ```
 
 Then add the code above into your config/app.php file providers section
 ```php
-Libern\LaravelClickHouse\ClickHouseServiceProvider::class,
+LinLancer\LaravelClickHouse\ClickHouseServiceProvider::class,
 ```
 And add new connection into your config/database.php file. Something like this:
 ```php
@@ -69,7 +69,7 @@ Then create model
 ```php
 <?php
 
-use Libern\LaravelClickHouse\Database\Eloquent\Model;
+use LinLancer\LaravelClickHouse\Database\Eloquent\Model;
 
 class Payment extends Model
 {

@@ -1,5 +1,5 @@
 {
-  "name": "libern/laravel-clickhouse",
+  "name": "linlancer/laravel-clickhouse",
   "type": "library",
   "description": "Clickhouse Laravel package",
   "license": "MIT",
@@ -11,7 +11,7 @@
   "require": {
     "php": ">=7.1",
     "laravel/framework": "5.8.*",
-    "libern/clickhouse-builder": "~1.0"
+    "esazykin/clickhouse-builder": "~1.1"
   },
   "require-dev": {
     "phpunit/phpunit": "^6.5",
@@ -20,18 +20,18 @@
   },
   "autoload": {
     "psr-4": {
-      "Libern\\LaravelClickHouse\\": "src/"
+      "LinLancer\\LaravelClickHouse\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Libern\\LaravelClickHouse\\Tests\\": "tests/"
+      "LinLancer\\LaravelClickHouse\\Tests\\": "tests/"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "Libern\\LaravelClickHouse\\Providers\\ClickHouseServiceProvider"
+        "LinLancer\\LaravelClickHouse\\Providers\\ClickHouseServiceProvider"
       ]
     }
   },

@@ -1,11 +1,11 @@
 <?php
 
-namespace Libern\LaravelClickHouse\Database\Eloquent\Relations;
+namespace LinLancer\LaravelClickHouse\Database\Eloquent\Relations;
 
 use Closure;
 use Illuminate\Support\Arr;
 //use Illuminate\Database\Eloquent\Model;
-use Libern\LaravelClickHouse\Database\Eloquent\Model;
+use LinLancer\LaravelClickHouse\Database\Eloquent\Model;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;

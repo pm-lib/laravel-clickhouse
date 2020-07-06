@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Libern\LaravelClickHouse\Providers;
+namespace LinLancer\LaravelClickHouse\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\DatabaseManager;
-use Libern\LaravelClickHouse\Database\Connection;
-use Libern\LaravelClickHouse\Database\Eloquent\Model;
+use LinLancer\LaravelClickHouse\Database\Connection;
+use LinLancer\LaravelClickHouse\Database\Eloquent\Model;
 
 class ClickHouseServiceProvider extends ServiceProvider
 {

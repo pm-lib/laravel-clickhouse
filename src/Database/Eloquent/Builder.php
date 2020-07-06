@@ -1,6 +1,6 @@
 <?php
 
-namespace Libern\LaravelClickHouse\Database\Eloquent;
+namespace LinLancer\LaravelClickHouse\Database\Eloquent;
 
 use Closure;
 use BadMethodCallException;
@@ -12,7 +12,7 @@ use Illuminate\Database\Concerns\BuildsQueries;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\RelationNotFoundException;
-use Libern\LaravelClickHouse\Database\Query\Builder as QueryBuilder;
+use LinLancer\LaravelClickHouse\Database\Query\Builder as QueryBuilder;
 
 /**
  * @mixin QueryBuilder
@@ -24,14 +24,14 @@ class Builder
     /**
      * The base query builder instance.
      *
-     * @var \Libern\LaravelClickHouse\Database\Query\Builder
+     * @var \LinLancer\LaravelClickHouse\Database\Query\Builder
      */
     protected $query;
 
     /**
      * The model being queried.
      *
-     * @var \Libern\LaravelClickHouse\Database\Eloquent\Model
+     * @var \LinLancer\LaravelClickHouse\Database\Eloquent\Model
      */
     protected $model;
 

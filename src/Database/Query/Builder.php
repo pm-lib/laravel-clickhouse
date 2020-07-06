@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Libern\LaravelClickHouse\Database\Query;
+namespace LinLancer\LaravelClickHouse\Database\Query;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -10,7 +10,7 @@ use Tinderbox\Clickhouse\Common\Format;
 use Illuminate\Support\Traits\Macroable;
 use Tinderbox\ClickhouseBuilder\Query\Grammar;
 use Tinderbox\ClickhouseBuilder\Query\BaseBuilder;
-use Libern\LaravelClickHouse\Database\Connection;
+use LinLancer\LaravelClickHouse\Database\Connection;
 
 
 

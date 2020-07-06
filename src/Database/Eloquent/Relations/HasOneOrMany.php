@@ -1,9 +1,9 @@
 <?php
 
-namespace Libern\LaravelClickHouse\Database\Eloquent\Relations;
+namespace LinLancer\LaravelClickHouse\Database\Eloquent\Relations;
 
 //use Illuminate\Database\Eloquent\Model;
-use Libern\LaravelClickHouse\Database\Eloquent\Model;
+use LinLancer\LaravelClickHouse\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 //use Illuminate\Database\Eloquent\Relations\Relation;

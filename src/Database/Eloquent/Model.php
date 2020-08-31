@@ -2,25 +2,24 @@
 
 declare(strict_types=1);
 
-namespace LinLancer\LaravelClickHouse\Database\Eloquent;
+namespace Nolka\LaravelClickHouse\Database\Eloquent;
 
 use ArrayAccess;
-use JsonSerializable;
-use Illuminate\Support\Str;
-use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
-use Tinderbox\ClickhouseBuilder\Query\Grammar;
-use LinLancer\LaravelClickHouse\Database\Connection;
+use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Database\ConnectionResolverInterface;
+use Illuminate\Database\ConnectionResolverInterface as Resolver;
+use Illuminate\Database\Eloquent\Concerns\GuardsAttributes;
 use Illuminate\Database\Eloquent\Concerns\HasEvents;
+use Illuminate\Database\Eloquent\Concerns\HidesAttributes;
 use Illuminate\Database\Eloquent\JsonEncodingException;
 use Illuminate\Database\Eloquent\MassAssignmentException;
-use Illuminate\Database\Eloquent\Concerns\HidesAttributes;
-use Illuminate\Database\Eloquent\Concerns\GuardsAttributes;
-//use Illuminate\Database\Eloquent\Concerns\HasRelationships;
-use LinLancer\LaravelClickHouse\Database\Eloquent\Concerns\HasRelationships;
-use Illuminate\Database\ConnectionResolverInterface as Resolver;
-use LinLancer\LaravelClickHouse\Database\Query\Builder as QueryBuilder;
+use Illuminate\Support\Str;
+use JsonSerializable;
+use Nolka\LaravelClickHouse\Database\Connection;
+use Nolka\LaravelClickHouse\Database\Eloquent\Concerns\HasRelationships;
+use Nolka\LaravelClickHouse\Database\Query\Builder as QueryBuilder;
+use Tinderbox\ClickhouseBuilder\Query\Grammar;
 
 /**
  * @mixin \Eloquent

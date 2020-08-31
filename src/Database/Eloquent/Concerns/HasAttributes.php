@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace LinLancer\LaravelClickHouse\Database\Eloquent\Concerns;
+namespace Nolka\LaravelClickHouse\Database\Eloquent\Concerns;
 
-use LogicException;
-use Illuminate\Database\Eloquent\Relations\Relation as BaseRelation;
-use LinLancer\LaravelClickHouse\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\Concerns\HasAttributes as BaseHasAttributes;
+use Illuminate\Database\Eloquent\Relations\Relation as BaseRelation;
+use LogicException;
+use Nolka\LaravelClickHouse\Database\Eloquent\Relations\Relation;
 
 trait HasAttributes
 {

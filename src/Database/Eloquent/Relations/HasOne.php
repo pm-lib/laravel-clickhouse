@@ -1,14 +1,10 @@
 <?php
 
-namespace LinLancer\LaravelClickHouse\Database\Eloquent\Relations;
+namespace Nolka\LaravelClickHouse\Database\Eloquent\Relations;
 
-
-//use Illuminate\Database\Eloquent\Model;
-use LinLancer\LaravelClickHouse\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
-//use Illuminate\Database\Eloquent\Relations\Concerns\SupportsDefaultModels;
-use LinLancer\LaravelClickHouse\Database\Eloquent\Relations\Concerns\SupportsDefaultModels;
-//use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
+use Nolka\LaravelClickHouse\Database\Eloquent\Model;
+use Nolka\LaravelClickHouse\Database\Eloquent\Relations\Concerns\SupportsDefaultModels;
 
 class HasOne extends HasOneOrMany
 {

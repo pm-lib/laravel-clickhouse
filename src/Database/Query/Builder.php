@@ -2,16 +2,15 @@
 
 declare(strict_types=1);
 
-namespace LinLancer\LaravelClickHouse\Database\Query;
+namespace Nolka\LaravelClickHouse\Database\Query;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Tinderbox\Clickhouse\Common\Format;
 use Illuminate\Support\Traits\Macroable;
-use Tinderbox\ClickhouseBuilder\Query\Grammar;
+use Nolka\LaravelClickHouse\Database\Connection;
+use Tinderbox\Clickhouse\Common\Format;
 use Tinderbox\ClickhouseBuilder\Query\BaseBuilder;
-use LinLancer\LaravelClickHouse\Database\Connection;
-
+use Tinderbox\ClickhouseBuilder\Query\Grammar;
 
 
 class Builder extends BaseBuilder

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace LinLancer\LaravelClickHouse\Database;
+namespace Nolka\LaravelClickHouse\Database;
 
+use Nolka\LaravelClickHouse\Database\Query\Builder;
 use Tinderbox\ClickhouseBuilder\Query\Grammar;
-use LinLancer\LaravelClickHouse\Database\Query\Builder;
 
 class Connection extends \Tinderbox\ClickhouseBuilder\Integrations\Laravel\Connection
 {

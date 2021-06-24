@@ -130,11 +130,10 @@ class Builder
     /**
      * Add a basic where clause to the query.
      *
-     * @param string|array|\Closure $column
-     * @param string                $operator
-     * @param mixed                 $value
-     * @param string                $boolean
-     *
+     * @param  string|array|\Closure $column
+     * @param  string $operator
+     * @param  mixed $value
+     * @param  string $boolean
      * @return $this
      */
     public function where($column, $operator = null, $value = null, string $boolean = 'AND'): self
@@ -518,7 +517,8 @@ class Builder
     {
         $page = $page ?: Paginator::resolveCurrentPage($pageName);
         $perPage = $perPage ?: $this->model->getPerPage();
-        $results = ($total = $this->toBase()->getCountForPagination())
+
+        $results = ($total = $this->toBase()->count())
             ? $this->forPage($page, $perPage)->get($columns)
             : $this->model->newCollection();
 
@@ -968,6 +968,19 @@ class Builder
         $this->query->{$method}(...$parameters);
 
         return $this;
+    }
+
+    /**
+     * Save a new model and return the instance.
+     *
+     * @param  array  $attributes
+     * @return \Illuminate\Database\Eloquent\Model|$this
+     */
+    public function create(array $attributes = [])
+    {
+        return tap($this->newModelInstance($attributes), function ($instance) {
+            $instance->save();
+        });
     }
 
     /**

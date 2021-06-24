@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Bavix\LaravelClickHouse\Database\Eloquent\Concerns;
 
 use Illuminate\Database\Eloquent\Concerns\HasAttributes as BaseHasAttributes;
+use Illuminate\Database\Eloquent\Relations\Relation as BaseRelation;
+use LogicException;
+use Bavix\LaravelClickHouse\Database\Eloquent\Relations\Relation;
 
 trait HasAttributes
 {
@@ -23,5 +26,20 @@ trait HasAttributes
     protected function getDateFormat(): string
     {
         return $this->dateFormat ?? 'Y-m-d H:i:s';
+    }
+
+    protected function getRelationshipFromMethod($method)
+    {
+        $relation = $this->$method();
+
+        if (! ($relation instanceof Relation || $relation instanceof BaseRelation)) {
+            throw new LogicException(sprintf(
+                '%s::%s must return a relationship instance.', static::class, $method
+            ));
+        }
+
+        return tap($relation->getResults(), function ($results) use ($method) {
+            $this->setRelation($method, $results);
+        });
     }
 }

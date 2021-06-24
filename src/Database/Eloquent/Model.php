@@ -7,13 +7,14 @@ namespace Bavix\LaravelClickHouse\Database\Eloquent;
 use ArrayAccess;
 use Bavix\LaravelClickHouse\Database\Connection;
 use Bavix\LaravelClickHouse\Database\Query\Builder as QueryBuilder;
+use Bavix\LaravelClickHouse\Database\Eloquent\Concerns\HasRelationships;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Database\ConnectionResolverInterface;
 use Illuminate\Database\ConnectionResolverInterface as Resolver;
 use Illuminate\Database\Eloquent\Concerns\GuardsAttributes;
 use Illuminate\Database\Eloquent\Concerns\HasEvents;
-use Illuminate\Database\Eloquent\Concerns\HasRelationships;
+//use Illuminate\Database\Eloquent\Concerns\HasRelationships;
 use Illuminate\Database\Eloquent\Concerns\HidesAttributes;
 use Illuminate\Database\Eloquent\JsonEncodingException;
 use Illuminate\Database\Eloquent\MassAssignmentException;
@@ -133,7 +134,8 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      */
     protected function bootIfNotBooted()
     {
-        if (!isset(static::$booted[static::class])) {
+        if (!isset(static::$booted[static::class]))
+        {
             static::$booted[static::class] = true;
 
             $this->fireModelEvent('booting', false);
@@ -278,6 +280,112 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
         $model->fireModelEvent('retrieved', false);
 
         return $model;
+    }
+
+    /**
+     * Save the model to the database.
+     *
+     * @param  array $options
+     * @return bool
+     */
+    public function save(array $options = [])
+    {
+        $query = $this->newQueryWithoutScopes();
+
+        // If the "saving" event returns false we'll bail out of the save and return
+        // false, indicating that the save failed. This provides a chance for any
+        // listeners to cancel save operations if validations fail or whatever.
+        if ($this->fireModelEvent('saving') === false)
+        {
+            return false;
+        }
+
+        // If the model already exists in the database we can just update our record
+        // that is already in this database using the current IDs in this "where"
+        // clause to only update this model. Otherwise, we'll just insert them.
+        if ($this->exists)
+        {
+            throw new \Exception('Not supported updates');
+        }
+
+        // If the model is brand new, we'll insert it into our database and set the
+        // ID attribute on the model to the value of the newly inserted row's ID
+        // which is typically an auto-increment value managed by the database.
+        else
+        {
+            $saved = $this->performInsert($query);
+
+            if (!$this->getConnectionName() &&
+                $connection = $query->getConnection())
+            {
+                $this->setConnection($connection->getName());
+            }
+        }
+
+        // If the model is successfully saved, we need to do a few more things once
+        // that is done. We will call the "saved" method here to run any actions
+        // we need to happen after a model gets successfully saved right here.
+        if ($saved)
+        {
+            $this->finishSave($options);
+        }
+
+        return $saved;
+    }
+
+    /**
+     * Perform any actions that are necessary after the model is saved.
+     *
+     * @param  array $options
+     * @return void
+     */
+    protected function finishSave(array $options)
+    {
+        $this->fireModelEvent('saved', false);
+
+        if ($this->isDirty() && ($options['touch'] ?? true))
+        {
+            $this->touchOwners();
+        }
+
+        $this->syncOriginal();
+    }
+
+    /**
+     * Perform a model insert operation.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @return bool
+     */
+    protected function performInsert(Builder $query)
+    {
+        if ($this->fireModelEvent('creating') === false)
+        {
+            return false;
+        }
+
+        // If the model has an incrementing key, we can use the "insertGetId" method on
+        // the query builder, which will give us back the final inserted ID for this
+        // table from the database. Not all tables have to be incrementing though.
+        $attributes = $this->attributes;
+
+        if (empty($attributes))
+        {
+            return true;
+        }
+
+        $query->insert($attributes);
+
+        // We will go ahead and set the exists property to true, so that it is set when
+        // the created event is fired, just in case the developer tries to update it
+        // during the event. This will allow them to do so and run an update here.
+        $this->exists = true;
+
+        $this->wasRecentlyCreated = true;
+
+        $this->fireModelEvent('created', false);
+
+        return true;
     }
 
     /**

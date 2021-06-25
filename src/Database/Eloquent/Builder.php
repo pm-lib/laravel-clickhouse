@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\RelationNotFoundException;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\Scope;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -23,7 +22,7 @@ use Tinderbox\Clickhouse\Exceptions\ClientException;
 /**
  * @mixin QueryBuilder
  */
-class Builder extends EloquentBuilder
+class Builder
 {
     use BuildsQueries;
 

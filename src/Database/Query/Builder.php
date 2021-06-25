@@ -184,9 +184,9 @@ class Builder extends BaseBuilder
     protected function runPaginationCountQuery($columns = ['*'])
     {
         return $this->cloneWithout(['columns', 'orders', 'limit', 'offset'])
-                    ->cloneWithoutBindings(['select', 'order'])
-                    ->setAggregate('count', $this->withoutSelectAliases($columns))
-                    ->get()->all();
+            ->cloneWithoutBindings(['select', 'order'])
+            ->setAggregate('count', $this->withoutSelectAliases($columns))
+            ->get()->all();
     }
 
     /**
@@ -234,6 +234,33 @@ class Builder extends BaseBuilder
 
             $this->bindings['order'] = [];
         }
+
+        return $this;
+    }
+
+    /**
+     * Set the limit and offset for a given page.
+     *
+     * @param  int  $page
+     * @param  int  $perPage
+     * @return \Illuminate\Database\Query\Builder|static
+     */
+    public function forPage($page, $perPage = 15)
+    {
+        return $this->offset(($page - 1) * $perPage)->limit($perPage);
+    }
+
+    /**
+     * Set the "offset" value of the query.
+     *
+     * @param  int  $value
+     * @return $this
+     */
+    public function offset($value)
+    {
+        $property = $this->unions ? 'unionOffset' : 'offset';
+
+        $this->$property = max(0, $value);
 
         return $this;
     }

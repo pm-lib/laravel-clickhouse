@@ -247,7 +247,7 @@ class Builder extends BaseBuilder
      */
     public function forPage($page, $perPage = 15)
     {
-        return $this->offset(($page - 1) * $perPage)->limit($perPage);
+        return $this->offset(($page - 1) * $perPage)->limit($perPage,($page - 1) * $perPage);
     }
 
     /**

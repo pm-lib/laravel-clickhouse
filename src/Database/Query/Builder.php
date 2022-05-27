@@ -9,8 +9,15 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Traits\Macroable;
 use Tinderbox\Clickhouse\Common\Format;
+use Tinderbox\Clickhouse\Interfaces\FileInterface;
+use Tinderbox\ClickhouseBuilder\Query\ArrayJoinClause;
 use Tinderbox\ClickhouseBuilder\Query\BaseBuilder;
+use Tinderbox\ClickhouseBuilder\Query\Column;
+use Tinderbox\ClickhouseBuilder\Query\From;
 use Tinderbox\ClickhouseBuilder\Query\Grammar;
+use Tinderbox\ClickhouseBuilder\Query\JoinClause;
+use Tinderbox\ClickhouseBuilder\Query\Limit;
+use Tinderbox\ClickhouseBuilder\Query\TwoElementsLogicExpression;
 
 class Builder extends BaseBuilder
 {
@@ -19,6 +26,153 @@ class Builder extends BaseBuilder
     }
 
     protected $connection;
+
+
+
+
+
+
+    /**
+     * Columns for select.
+     *
+     * @var Column[]
+     */
+    public $columns = [];
+
+    /**
+     * Table to select from.
+     *
+     * @var From|null
+     */
+    public $from = null;
+
+    /**
+     * Sample expression.
+     *
+     * @var float|null
+     */
+    public $sample;
+
+    /**
+     * Join clauses.
+     *
+     * @var JoinClause[]|null
+     */
+    public $joins;
+
+    /**
+     * Array join clause.
+     *
+     * @var ArrayJoinClause
+     */
+    public $arrayJoin;
+
+    /**
+     * Prewhere statements.
+     *
+     * @var TwoElementsLogicExpression[]
+     */
+    public $prewheres = [];
+
+    /**
+     * Where statements.
+     *
+     * @var TwoElementsLogicExpression[]
+     */
+    public $wheres = [];
+
+    /**
+     * Groupings.
+     *
+     * @var array
+     */
+    public $groups = [];
+
+    /**
+     * Having statements.
+     *
+     * @var TwoElementsLogicExpression[]
+     */
+    public $havings = [];
+
+    /**
+     * Order statements.
+     *
+     * @var array
+     */
+    public $orders = [];
+
+    /**
+     * Limit.
+     *
+     * @var Limit|null
+     */
+    public $limit;
+
+    /**
+     * Limit n by statement.
+     *
+     * @var Limit|null
+     */
+    public $limitBy;
+
+    /**
+     * Queries to union.
+     *
+     * @var array
+     */
+    public $unions = [];
+
+    /**
+     * Query format.
+     *
+     * @var \Tinderbox\ClickhouseBuilder\Query\Enums\Format|null
+     */
+    public $format;
+
+    /**
+     * Grammar to build query parts.
+     *
+     * @var Grammar
+     */
+    public $grammar;
+
+    /**
+     * Queries which must be run asynchronous.
+     *
+     * @var array
+     */
+    public $async = [];
+
+    /**
+     * Files which should be sent on server to store into temporary table.
+     *
+     * @var array
+     */
+    public $files = [];
+
+    /**
+     * Cluster name.
+     *
+     * @var string
+     */
+    public $onCluster;
+
+    /**
+     * File representing values which should be inserted in table.
+     *
+     * @var FileInterface
+     */
+    public $values;
+
+    public $clusterName;
+
+    public $serverHostname;
+
+
+
+
+
 
     public function __construct(
         Connection $connection,
